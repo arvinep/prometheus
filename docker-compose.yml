@@ -6,8 +6,8 @@ services:
       context: .
     ports:
       - 9090:9090
-#    volumes:
-#      - prometheus_data:/etc/prometheus
-#
-#volumes:
-#  prometheus_data:
+    volumes:
+      - prometheus_data:/prometheus
+
+volumes:
+  prometheus_data:
