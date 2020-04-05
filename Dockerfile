@@ -1,3 +1,3 @@
 FROM prom/prometheus
 
-ADD prometheus.yml /etc/prometheus/
+COPY --chown=65534:65534 ./config/prometheus.yml /etc/prometheus/
