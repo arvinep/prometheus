@@ -1,0 +1,24 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 10s
+  external_labels:
+    monitor: 'your_monitor'
+scrape_configs:
+  - job_name: 'prometheus-itself'
+    scrape_interval: 20s
+    static_configs:
+      - targets: ['192.168.1.103:9090'] # <-- Replace with your Prometheus server IP
+  - job_name: 'linksys-dd-wrt-3200'
+    metrics_path: /snmp
+    params:
+      module: [ddwrt]  # Loading the ddwrt module for Prometheus
+    static_configs:
+      - targets:
+          - 192.168.1.1  # <-- Replace with Linksys WRT3200ACM IP
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: 192.168.1.1:9116 # <-- Replace with Linksys WRT3200ACM IP and SNMP_Explorer
